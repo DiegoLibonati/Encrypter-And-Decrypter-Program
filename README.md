@@ -4,8 +4,7 @@
 
 1. Clone the repository
 2. Join to the correct path of the clone
-3. Install requirements.txt
-4. Use `python encrypt_decrypt_program.py` to execute program
+3. Use `python encrypt_decrypt_program.py` to execute program
 
 ## Description
 
