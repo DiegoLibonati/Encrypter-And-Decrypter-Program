@@ -32,7 +32,7 @@ I made a python program using tkinter as user interface. This program allows to 
 
 ## Portfolio Link
 
-`https://diegolibonati.github.io/DiegoLibonatiWeb/#/projects?q=Encrypter%20and%20Decrypter%20program`
+`https://diegolibonati.github.io/DiegoLibonatiWeb/#/projects?q=Encrypter%20And%20Decrypter%20Program`
 
 ## Video
 
