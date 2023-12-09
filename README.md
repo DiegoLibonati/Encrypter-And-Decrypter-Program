@@ -18,21 +18,9 @@ I made a python program using tkinter as user interface. This program allows to 
 
 1. Tkinter
 
-## Galery
-
-![Encrypter-And-Decrypter-program](https://raw.githubusercontent.com/DiegoLibonati/DiegoLibonatiWeb/main/data/projects/Python/Imagenes/encranddecr-0.jpg)
-
-![Encrypter-And-Decrypter-program](https://raw.githubusercontent.com/DiegoLibonati/DiegoLibonatiWeb/main/data/projects/Python/Imagenes/encranddecr-1.jpg)
-
-![Encrypter-And-Decrypter-program](https://raw.githubusercontent.com/DiegoLibonati/DiegoLibonatiWeb/main/data/projects/Python/Imagenes/encranddecr-2.jpg)
-
-![Encrypter-And-Decrypter-program](https://raw.githubusercontent.com/DiegoLibonati/DiegoLibonatiWeb/main/data/projects/Python/Imagenes/encranddecr-3.jpg)
-
-![Encrypter-And-Decrypter-program](https://raw.githubusercontent.com/DiegoLibonati/DiegoLibonatiWeb/main/data/projects/Python/Imagenes/encranddecr-4.jpg)
-
 ## Portfolio Link
 
-`https://diegolibonati.github.io/DiegoLibonatiWeb/#/projects?q=Encrypter%20And%20Decrypter%20Program`
+[`https://www.diegolibonati.com.ar/#/project/62`](https://www.diegolibonati.com.ar/#/project/62)
 
 ## Video
 
