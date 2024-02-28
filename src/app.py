@@ -1,9 +1,12 @@
 # coding: utf8
 from tkinter import *
+
 from tkinter import filedialog
 
-class Program():
-    def __init__(self, master):
+class Program:
+    def __init__(
+        self, master: Tk
+    ):
         master.title("Encrypter And Decrypter")
         master.geometry("800x300+0+0")
         master.config(bg="#fff")
@@ -24,25 +27,36 @@ class Program():
         Button(width=20, height=1,font=(self.font_family, 15), text="DECRYPT", relief="raised", bg="GREEN",fg="#FFF",borderwidth=1, command=lambda:self.decrypt_file(self.path)).place(x=400, y=150)
         Label(font=(self.font_family, 12), textvariable=self.text_operation_result, bg="white", fg="black").place(x=400, y=250, anchor="center")
 
-    def select_file(self):
-        filename = filedialog.askopenfilename(initialdir = "/",
-                                          title = "Select a File",
-                                          filetypes = (("Text files",
-                                                        "*.txt*"),
-                                                       ("all files",
-                                                        "*.*")))
+
+    def select_file(
+        self
+    ) -> None:
+        filename = filedialog.askopenfilename(
+            initialdir = "/",
+            title = "Select a File",
+            filetypes = (
+                ("Text files", "*.txt*"),
+                ("All files", "*.*")
+            )
+        )
 
         self.text_import_file.set(filename)
         self.path = filename
 
-    def get_text(self, path):
+
+    def get_text(
+        self, path: str
+    ) -> str:
         text = open(path, "r")
         final_text_to_write = text.read()
         text.close()
 
         return final_text_to_write
 
-    def encrypt_file(self, path):
+
+    def encrypt_file(
+        self, path: str
+    ) -> None:
 
         if self.entry_password.get() == "hola":
             try:
@@ -66,8 +80,10 @@ class Program():
         else:
             self.text_operation_result.set("INVALID PASSWORD")
 
-    def decrypt_file(self, path):
 
+    def decrypt_file(
+        self, path: str
+    ) -> None:
         if self.entry_password.get() == "hola":
             try:
                 final_text = ""
@@ -89,6 +105,7 @@ class Program():
                 self.text_operation_result.set("You must insert a txt file to decrypt")
         else:
             self.text_operation_result.set("INVALID PASSWORD")
+
 
 root = Tk()
 

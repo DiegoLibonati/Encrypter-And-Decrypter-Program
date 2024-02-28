@@ -4,7 +4,7 @@
 
 1. Clone the repository
 2. Join to the correct path of the clone
-3. Use `python encrypt_decrypt_program.py` to execute program
+3. Use `python ./src/app.py` to execute program
 
 ## Description
 
@@ -31,13 +31,17 @@ https://user-images.githubusercontent.com/99032604/199141421-8723b21b-bc04-4c59-
 In this `select_file()` function we get the file we are loading:
 
 ```
-def select_file(self):
-    filename = filedialog.askopenfilename(initialdir = "/",
-                                        title = "Select a File",
-                                        filetypes = (("Text files",
-                                                    "*.txt*"),
-                                                    ("all files",
-                                                    "*.*")))
+def select_file(
+    self
+) -> None:
+    filename = filedialog.askopenfilename(
+        initialdir = "/",
+        title = "Select a File",
+        filetypes = (
+            ("Text files", "*.txt*"),
+            ("All files", "*.*")
+        )
+    )
 
     self.text_import_file.set(filename)
     self.path = filename
@@ -46,7 +50,9 @@ def select_file(self):
 In this function `get_text()` we get the text to edit:
 
 ```
-def get_text(self, path):
+def get_text(
+    self, path: str
+) -> str:
     text = open(path, "r")
     final_text_to_write = text.read()
     text.close()
@@ -57,14 +63,16 @@ def get_text(self, path):
 In this function `encrypt_file()` we are going to encrypt the file when we have entered the correct password, it will make an encryption with `ord and chr` letter by letter and when the button is clicked this function will be executed:
 
 ```
-def encrypt_file(self, path):
+def encrypt_file(
+    self, path: str
+) -> None:
 
     if self.entry_password.get() == "hola":
         try:
             final_text = ""
             text = self.get_text(path)
 
-            for letter in text:
+            for letter in text: 
                 new_letter = ord(letter) + 1
                 new_letter = chr(new_letter)
                 final_text += new_letter
@@ -85,14 +93,15 @@ def encrypt_file(self, path):
 In this function `decrypt_file()` we are going to decrypt the file when we have entered the correct password, it will do a decryption with `ord and chr` letter by letter and when the button is clicked this function will be executed:
 
 ```
-def decrypt_file(self, path):
-
+def decrypt_file(
+    self, path: str
+) -> None:
     if self.entry_password.get() == "hola":
         try:
             final_text = ""
             text = self.get_text(path)
 
-            for letter in text:
+            for letter in text: 
                 new_letter = ord(letter) - 1
                 new_letter = chr(new_letter)
                 final_text += new_letter
