@@ -1,4 +1,4 @@
-# Encrypter-And-Decrypter-Program
+# Encrypter And Decrypter Program
 
 ## Getting Started
 
@@ -20,7 +20,7 @@ I made a python program using tkinter as user interface. This program allows to 
 
 ## Portfolio Link
 
-[`https://www.diegolibonati.com.ar/#/project/62`](https://www.diegolibonati.com.ar/#/project/62)
+[`https://www.diegolibonati.com.ar/#/project/Encrypter-And-Decrypter-Program`](https://www.diegolibonati.com.ar/#/project/Encrypter-And-Decrypter-Program)
 
 ## Video
 
