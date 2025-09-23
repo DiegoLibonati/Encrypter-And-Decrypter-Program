@@ -1,15 +1,11 @@
 import os
 import shutil
+from test.constants import DIR_TXTS, INVALID_TXT_PATH, PATH_TXT, TEXT_TXT
 from tkinter import Tk
 
 from pytest import fixture
 
-from src.models.InterfaceApp import InterfaceApp
-
-from test.constants import DIR_TXTS
-from test.constants import PATH_TXT
-from test.constants import TEXT_TXT
-from test.constants import INVALID_TXT_PATH
+from src.models import InterfaceApp
 
 
 @fixture
