@@ -3,7 +3,7 @@ import logging
 import pytest
 
 from src.ui.interface_app import InterfaceApp
-from src.utils.constants import WHITE_COLOR
+from src.utils.styles import WHITE_COLOR
 
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"

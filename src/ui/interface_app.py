@@ -2,7 +2,7 @@
 from tkinter import Button, Label, StringVar, Tk
 
 from src.services.file_service import decrypt_file, encrypt_file
-from src.utils.constants import (
+from src.utils.styles import (
     ANCHOR_CENTER,
     BLACK_COLOR,
     FONT_TIMES_12,
