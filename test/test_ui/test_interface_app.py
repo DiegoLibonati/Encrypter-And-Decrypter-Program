@@ -26,7 +26,7 @@ def test_initial_config_tk_app(interface_app: InterfaceApp) -> None:
 
 
 def test_encrypt_file_invalid_path(interface_app: InterfaceApp) -> None:
-    interface_app._path = ""  # simula sin path
+    interface_app._path = ""
     interface_app._encrypt_file()
 
     assert (
@@ -36,7 +36,7 @@ def test_encrypt_file_invalid_path(interface_app: InterfaceApp) -> None:
 
 
 def test_decrypt_file_invalid_path(interface_app: InterfaceApp) -> None:
-    interface_app._path = ""  # simula sin path
+    interface_app._path = ""
     interface_app._decrypt_file()
 
     assert (
@@ -53,10 +53,9 @@ def test_encrypt_file_success(
     def mock_encrypt(path: str) -> None:
         assert path == "fake.txt"
 
-    monkeypatch.setattr("src.ui.interface_app.encrypt_file", mock_encrypt)
+    monkeypatch.setattr(interface_app._file_service, "encrypt_file", mock_encrypt)
 
     interface_app._encrypt_file()
-
     assert interface_app._label_operation_result.get() == "Successfully encrypted."
 
 
@@ -68,10 +67,9 @@ def test_encrypt_file_invalid_txt(
     def mock_encrypt(path: str) -> None:
         raise ValueError("You must insert a txt file to encrypt.")
 
-    monkeypatch.setattr("src.ui.interface_app.encrypt_file", mock_encrypt)
+    monkeypatch.setattr(interface_app._file_service, "encrypt_file", mock_encrypt)
 
     interface_app._encrypt_file()
-
     assert (
         interface_app._label_operation_result.get()
         == "You must insert a txt file to encrypt."
@@ -86,10 +84,9 @@ def test_decrypt_file_success(
     def mock_decrypt(path: str) -> None:
         assert path == "fake.txt"
 
-    monkeypatch.setattr("src.ui.interface_app.decrypt_file", mock_decrypt)
+    monkeypatch.setattr(interface_app._file_service, "decrypt_file", mock_decrypt)
 
     interface_app._decrypt_file()
-
     assert interface_app._label_operation_result.get() == "Successfully decrypted."
 
 
@@ -101,10 +98,9 @@ def test_decrypt_file_invalid_txt(
     def mock_decrypt(path: str) -> None:
         raise ValueError("You must insert a txt file to decrypt.")
 
-    monkeypatch.setattr("src.ui.interface_app.decrypt_file", mock_decrypt)
+    monkeypatch.setattr(interface_app._file_service, "decrypt_file", mock_decrypt)
 
     interface_app._decrypt_file()
-
     assert (
         interface_app._label_operation_result.get()
         == "You must insert a txt file to decrypt."

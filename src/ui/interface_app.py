@@ -1,7 +1,7 @@
 # coding: utf8
 from tkinter import Button, Label, StringVar, Tk
 
-from src.services.file_service import decrypt_file, encrypt_file
+from src.services.file_service import FileService
 from src.utils.styles import (
     ANCHOR_CENTER,
     BLACK_COLOR,
@@ -24,7 +24,8 @@ class InterfaceApp:
 
         self._path = ""
 
-        # Create widgets
+        self._file_service = FileService()
+
         self._create_widgets()
 
     def _create_widgets(self) -> None:
@@ -88,14 +89,14 @@ class InterfaceApp:
 
     def _encrypt_file(self) -> None:
         try:
-            encrypt_file(self._path)
+            self._file_service.encrypt_file(self._path)
             self._label_operation_result.set("Successfully encrypted.")
         except ValueError as e:
             self._label_operation_result.set(str(e))
 
     def _decrypt_file(self) -> None:
         try:
-            decrypt_file(self._path)
+            self._file_service.decrypt_file(self._path)
             self._label_operation_result.set("Successfully decrypted.")
         except ValueError as e:
             self._label_operation_result.set(str(e))
