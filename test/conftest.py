@@ -1,56 +1,56 @@
-import os
-import shutil
-from test.constants import DIR_TXTS, INVALID_TXT_PATH, PATH_TXT, TEXT_TXT
-from tkinter import Tk
+from tkinter import StringVar
+from unittest.mock import MagicMock
 
-from pytest import fixture
+import pytest
 
-from src.services.file_service import FileService
-from src.ui.interface_app import InterfaceApp
+from src.ui.styles import Styles
 
 
-@fixture
-def interface_app() -> InterfaceApp:
-    root = Tk()
-    return InterfaceApp(root=root)
+@pytest.fixture
+def mock_root() -> MagicMock:
+    root: MagicMock = MagicMock()
+    root.title = MagicMock()
+    root.geometry = MagicMock()
+    root.resizable = MagicMock()
+    root.config = MagicMock()
+    root.columnconfigure = MagicMock()
+    root.rowconfigure = MagicMock()
+    return root
 
 
-@fixture
-def file_service() -> FileService:
-    return FileService()
+@pytest.fixture
+def mock_styles() -> MagicMock:
+    styles: MagicMock = MagicMock()
+    styles.WHITE_COLOR = "#FFFFFF"
+    styles.BLACK_COLOR = "#000000"
+    styles.RED_COLOR = "#FF0000"
+    styles.GREEN_COLOR = "#00FF00"
+    styles.FONT_TIMES_12 = "Times 12"
+    styles.FONT_TIMES_15 = "Times 15"
+    styles.RELIEF_RAISED = "raised"
+    return styles
 
 
-@fixture
-def test_path_txt() -> str:
-    return PATH_TXT
+@pytest.fixture
+def real_styles() -> Styles:
+    return Styles()
 
 
-@fixture
-def test_invalid_path() -> str:
-    return INVALID_TXT_PATH
+@pytest.fixture
+def mock_on_import() -> MagicMock:
+    return MagicMock()
 
 
-@fixture
-def test_txt() -> str:
-    return TEXT_TXT
+@pytest.fixture
+def mock_on_encrypt() -> MagicMock:
+    return MagicMock()
 
 
-def pytest_sessionstart():
-    """Se ejecuta antes de que comiencen los tests."""
-    path_txt = PATH_TXT
-    dir_txt = DIR_TXTS
-    text = TEXT_TXT
-
-    if not os.path.exists(dir_txt):
-        os.makedirs(dir_txt)
-
-    with open(path_txt, "w") as file:
-        file.write(text)
-        file.close()
+@pytest.fixture
+def mock_on_decrypt() -> MagicMock:
+    return MagicMock()
 
 
-def pytest_sessionfinish():
-    """Se ejecuta después de que todos los tests hayan terminado."""
-    dir = DIR_TXTS
-
-    shutil.rmtree(path=dir)
+@pytest.fixture
+def variable() -> MagicMock:
+    return MagicMock(spec=StringVar)

@@ -1,3 +1,6 @@
+import os
+
+
 class FileService:
     def __init__(self, base_path: str = ""):
         self.base_path = base_path
@@ -8,14 +11,12 @@ class FileService:
             raise ValueError("You must enter a path in order to find a file.")
         if not filename.endswith(".txt"):
             raise ValueError("You must insert a txt file.")
-        with open(path, "r") as f:
+        with open(path) as f:
             return f.read()
 
     def encrypt_file(self, filename: str) -> None:
         if not filename:
-            raise ValueError(
-                "You must enter a path in order to find a file to encrypt."
-            )
+            raise ValueError("You must enter a path in order to find a file to encrypt.")
         if not filename.endswith(".txt"):
             raise ValueError("You must insert a txt file to encrypt.")
 
@@ -27,9 +28,7 @@ class FileService:
 
     def decrypt_file(self, filename: str) -> None:
         if not filename:
-            raise ValueError(
-                "You must enter a path in order to find a file to decrypt."
-            )
+            raise ValueError("You must enter a path in order to find a file to decrypt.")
         if not filename.endswith(".txt"):
             raise ValueError("You must insert a txt file to decrypt.")
 
@@ -40,8 +39,6 @@ class FileService:
             f.write(decrypted_text)
 
     def _resolve_path(self, filename: str) -> str:
-        import os
-
         if self.base_path:
             return os.path.join(self.base_path, filename)
         return filename

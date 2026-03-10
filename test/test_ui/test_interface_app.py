@@ -1,107 +1,142 @@
-import logging
+from unittest.mock import MagicMock, patch
 
 import pytest
 
 from src.ui.interface_app import InterfaceApp
-from src.utils.styles import WHITE_COLOR
-
-logging.basicConfig(
-    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
-)
+from src.ui.styles import Styles
 
 
-def test_initial_config_tk_app(interface_app: InterfaceApp) -> None:
-    root = interface_app._root
-    root.update()
-
-    title = root.title()
-    geometry = root.geometry().split("+")[0]
-    resizable = root.resizable()
-    config_bg = root.cget("bg")
-
-    assert title == "Encrypter And Decrypter"
-    assert geometry == "800x300"
-    assert resizable == (False, False)
-    assert config_bg == WHITE_COLOR
-
-
-def test_encrypt_file_invalid_path(interface_app: InterfaceApp) -> None:
-    interface_app._path = ""
-    interface_app._encrypt_file()
-
-    assert (
-        interface_app._label_operation_result.get()
-        == "You must enter a path in order to find a file to encrypt."
-    )
+@pytest.fixture
+def interface_app(mock_root: MagicMock, mock_styles: MagicMock) -> InterfaceApp:
+    with patch("src.ui.interface_app.MainView") as mock_main_view_class:
+        mock_main_view: MagicMock = MagicMock()
+        mock_main_view.grid = MagicMock()
+        mock_main_view_class.return_value = mock_main_view
+        instance: InterfaceApp = InterfaceApp.__new__(InterfaceApp)
+        instance._styles = mock_styles
+        instance._root = mock_root
+        instance._config = MagicMock()
+        instance._main_view = mock_main_view
+        instance._path = ""
+        return instance
 
 
-def test_decrypt_file_invalid_path(interface_app: InterfaceApp) -> None:
-    interface_app._path = ""
-    interface_app._decrypt_file()
+class TestInterfaceAppInit:
+    def test_stores_styles(self, interface_app: InterfaceApp, mock_styles: MagicMock) -> None:
+        assert interface_app._styles == mock_styles
 
-    assert (
-        interface_app._label_operation_result.get()
-        == "You must enter a path in order to find a file to decrypt."
-    )
+    def test_stores_root(self, interface_app: InterfaceApp, mock_root: MagicMock) -> None:
+        assert interface_app._root == mock_root
 
+    def test_path_initial_value_is_empty(self, interface_app: InterfaceApp) -> None:
+        assert interface_app._path == ""
 
-def test_encrypt_file_success(
-    monkeypatch: pytest.MonkeyPatch, interface_app: InterfaceApp
-) -> None:
-    interface_app._path = "fake.txt"
+    def test_title_is_set(self, mock_root: MagicMock, mock_styles: MagicMock) -> None:
+        with patch("src.ui.interface_app.MainView") as mock_main_view_class:
+            mock_main_view_class.return_value.grid = MagicMock()
+            InterfaceApp(root=mock_root, config=MagicMock(), styles=mock_styles)
 
-    def mock_encrypt(path: str) -> None:
-        assert path == "fake.txt"
+        mock_root.title.assert_called_once_with("Encrypter And Decrypter")
 
-    monkeypatch.setattr(interface_app._file_service, "encrypt_file", mock_encrypt)
+    def test_geometry_is_set(self, mock_root: MagicMock, mock_styles: MagicMock) -> None:
+        with patch("src.ui.interface_app.MainView") as mock_main_view_class:
+            mock_main_view_class.return_value.grid = MagicMock()
+            InterfaceApp(root=mock_root, config=MagicMock(), styles=mock_styles)
 
-    interface_app._encrypt_file()
-    assert interface_app._label_operation_result.get() == "Successfully encrypted."
+        mock_root.geometry.assert_called_once_with("800x300+0+0")
 
+    def test_is_not_resizable(self, mock_root: MagicMock, mock_styles: MagicMock) -> None:
+        with patch("src.ui.interface_app.MainView") as mock_main_view_class:
+            mock_main_view_class.return_value.grid = MagicMock()
+            InterfaceApp(root=mock_root, config=MagicMock(), styles=mock_styles)
 
-def test_encrypt_file_invalid_txt(
-    monkeypatch: pytest.MonkeyPatch, interface_app: InterfaceApp
-) -> None:
-    interface_app._path = "fake.txt"
+        mock_root.resizable.assert_called_once_with(False, False)
 
-    def mock_encrypt(path: str) -> None:
-        raise ValueError("You must insert a txt file to encrypt.")
+    def test_default_styles_is_styles_instance(self, mock_root: MagicMock) -> None:
+        with patch("src.ui.interface_app.MainView") as mock_main_view_class:
+            mock_main_view_class.return_value.grid = MagicMock()
+            app: InterfaceApp = InterfaceApp(root=mock_root, config=MagicMock())
 
-    monkeypatch.setattr(interface_app._file_service, "encrypt_file", mock_encrypt)
-
-    interface_app._encrypt_file()
-    assert (
-        interface_app._label_operation_result.get()
-        == "You must insert a txt file to encrypt."
-    )
+        assert isinstance(app._styles, Styles)
 
 
-def test_decrypt_file_success(
-    monkeypatch: pytest.MonkeyPatch, interface_app: InterfaceApp
-) -> None:
-    interface_app._path = "fake.txt"
+class TestInterfaceAppSelectFile:
+    def test_path_is_updated_after_selection(self, interface_app: InterfaceApp) -> None:
+        with patch("src.ui.interface_app.filedialog.askopenfilename", return_value="/path/to/file.txt"):
+            interface_app._select_file()
 
-    def mock_decrypt(path: str) -> None:
-        assert path == "fake.txt"
+        assert interface_app._path == "/path/to/file.txt"
 
-    monkeypatch.setattr(interface_app._file_service, "decrypt_file", mock_decrypt)
+    def test_set_import_label_called_with_path(self, interface_app: InterfaceApp) -> None:
+        with patch("src.ui.interface_app.filedialog.askopenfilename", return_value="/path/to/file.txt"):
+            interface_app._select_file()
 
-    interface_app._decrypt_file()
-    assert interface_app._label_operation_result.get() == "Successfully decrypted."
+        interface_app._main_view.set_import_label.assert_called_once_with("/path/to/file.txt")
+
+    def test_path_is_empty_when_dialog_cancelled(self, interface_app: InterfaceApp) -> None:
+        with patch("src.ui.interface_app.filedialog.askopenfilename", return_value=""):
+            interface_app._select_file()
+
+        assert interface_app._path == ""
 
 
-def test_decrypt_file_invalid_txt(
-    monkeypatch: pytest.MonkeyPatch, interface_app: InterfaceApp
-) -> None:
-    interface_app._path = "fake.txt"
+class TestInterfaceAppEncryptFile:
+    def test_set_result_called_with_success_message(self, interface_app: InterfaceApp) -> None:
+        interface_app._path = "/path/to/file.txt"
 
-    def mock_decrypt(path: str) -> None:
-        raise ValueError("You must insert a txt file to decrypt.")
+        with patch("src.ui.interface_app.FileService") as mock_file_service_class:
+            mock_file_service_class.return_value.encrypt_file = MagicMock()
+            interface_app._encrypt_file()
 
-    monkeypatch.setattr(interface_app._file_service, "decrypt_file", mock_decrypt)
+        interface_app._main_view.set_result.assert_called_once_with("Successfully encrypted.")
 
-    interface_app._decrypt_file()
-    assert (
-        interface_app._label_operation_result.get()
-        == "You must insert a txt file to decrypt."
-    )
+    def test_set_result_called_with_error_message_on_value_error(self, interface_app: InterfaceApp) -> None:
+        interface_app._path = ""
+
+        with patch("src.ui.interface_app.FileService") as mock_file_service_class:
+            mock_file_service_class.return_value.encrypt_file.side_effect = ValueError("You must enter a path in order to find a file to encrypt.")
+            interface_app._encrypt_file()
+
+        call_arg: str = interface_app._main_view.set_result.call_args[0][0]
+        assert "path" in call_arg
+
+    def test_encrypt_file_called_with_path(self, interface_app: InterfaceApp) -> None:
+        interface_app._path = "/path/to/file.txt"
+
+        with patch("src.ui.interface_app.FileService") as mock_file_service_class:
+            mock_encrypt: MagicMock = MagicMock()
+            mock_file_service_class.return_value.encrypt_file = mock_encrypt
+            interface_app._encrypt_file()
+
+        mock_encrypt.assert_called_once_with("/path/to/file.txt")
+
+
+class TestInterfaceAppDecryptFile:
+    def test_set_result_called_with_success_message(self, interface_app: InterfaceApp) -> None:
+        interface_app._path = "/path/to/file.txt"
+
+        with patch("src.ui.interface_app.FileService") as mock_file_service_class:
+            mock_file_service_class.return_value.decrypt_file = MagicMock()
+            interface_app._decrypt_file()
+
+        interface_app._main_view.set_result.assert_called_once_with("Successfully decrypted.")
+
+    def test_set_result_called_with_error_message_on_value_error(self, interface_app: InterfaceApp) -> None:
+        interface_app._path = ""
+
+        with patch("src.ui.interface_app.FileService") as mock_file_service_class:
+            mock_file_service_class.return_value.decrypt_file.side_effect = ValueError("You must enter a path in order to find a file to decrypt.")
+            interface_app._decrypt_file()
+
+        call_arg: str = interface_app._main_view.set_result.call_args[0][0]
+        assert "path" in call_arg
+
+    def test_decrypt_file_called_with_path(self, interface_app: InterfaceApp) -> None:
+        interface_app._path = "/path/to/file.txt"
+
+        with patch("src.ui.interface_app.FileService") as mock_file_service_class:
+            mock_decrypt: MagicMock = MagicMock()
+            mock_file_service_class.return_value.decrypt_file = mock_decrypt
+            interface_app._decrypt_file()
+
+        mock_decrypt.assert_called_once_with("/path/to/file.txt")
