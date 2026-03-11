@@ -1,6 +1,7 @@
 from tkinter import Tk, filedialog
 
 from src.configs.default_config import DefaultConfig
+from src.constants.messages import MESSAGE_SUCCESS_DECRYPTED, MESSAGE_SUCCESS_ENCRYPTED
 from src.services.file_service import FileService
 from src.ui.styles import Styles
 from src.ui.views.main_view import MainView
@@ -40,13 +41,13 @@ class InterfaceApp:
     def _encrypt_file(self) -> None:
         try:
             FileService().encrypt_file(self._path)
-            self._main_view.set_result("Successfully encrypted.")
+            self._main_view.set_result(MESSAGE_SUCCESS_ENCRYPTED)
         except ValueError as e:
             self._main_view.set_result(str(e))
 
     def _decrypt_file(self) -> None:
         try:
             FileService().decrypt_file(self._path)
-            self._main_view.set_result("Successfully decrypted.")
+            self._main_view.set_result(MESSAGE_SUCCESS_DECRYPTED)
         except ValueError as e:
             self._main_view.set_result(str(e))

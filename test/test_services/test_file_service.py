@@ -62,11 +62,11 @@ class TestFileServiceGetText:
 
 class TestFileServiceEncryptFile:
     def test_raises_value_error_when_filename_is_empty(self, file_service: FileService) -> None:
-        with pytest.raises(ValueError, match="path in order to find a file to encrypt"):
+        with pytest.raises(ValueError, match="path in order to find a file"):
             file_service.encrypt_file("")
 
     def test_raises_value_error_when_not_txt_extension(self, file_service: FileService) -> None:
-        with pytest.raises(ValueError, match="txt file to encrypt"):
+        with pytest.raises(ValueError, match="txt file"):
             file_service.encrypt_file("document.pdf")
 
     def test_writes_encrypted_content(self, file_service: FileService) -> None:
@@ -105,11 +105,11 @@ class TestFileServiceEncryptFile:
 
 class TestFileServiceDecryptFile:
     def test_raises_value_error_when_filename_is_empty(self, file_service: FileService) -> None:
-        with pytest.raises(ValueError, match="path in order to find a file to decrypt"):
+        with pytest.raises(ValueError, match="path in order to find a file"):
             file_service.decrypt_file("")
 
     def test_raises_value_error_when_not_txt_extension(self, file_service: FileService) -> None:
-        with pytest.raises(ValueError, match="txt file to decrypt"):
+        with pytest.raises(ValueError, match="txt file"):
             file_service.decrypt_file("document.pdf")
 
     def test_writes_decrypted_content(self, file_service: FileService) -> None:

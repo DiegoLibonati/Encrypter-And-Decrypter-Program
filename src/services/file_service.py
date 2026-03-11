@@ -1,5 +1,7 @@
 import os
 
+from src.constants.messages import MESSAGE_ERROR_NOT_VALID_FILE_TYPE, MESSAGE_ERROR_NOT_VALID_PATH
+
 
 class FileService:
     def __init__(self, base_path: str = ""):
@@ -8,17 +10,17 @@ class FileService:
     def get_text(self, filename: str) -> str:
         path = self._resolve_path(filename)
         if not filename:
-            raise ValueError("You must enter a path in order to find a file.")
+            raise ValueError(MESSAGE_ERROR_NOT_VALID_PATH)
         if not filename.endswith(".txt"):
-            raise ValueError("You must insert a txt file.")
+            raise ValueError(MESSAGE_ERROR_NOT_VALID_FILE_TYPE)
         with open(path) as f:
             return f.read()
 
     def encrypt_file(self, filename: str) -> None:
         if not filename:
-            raise ValueError("You must enter a path in order to find a file to encrypt.")
+            raise ValueError(MESSAGE_ERROR_NOT_VALID_PATH)
         if not filename.endswith(".txt"):
-            raise ValueError("You must insert a txt file to encrypt.")
+            raise ValueError(MESSAGE_ERROR_NOT_VALID_FILE_TYPE)
 
         path = self._resolve_path(filename)
         text = self.get_text(filename)
@@ -28,9 +30,9 @@ class FileService:
 
     def decrypt_file(self, filename: str) -> None:
         if not filename:
-            raise ValueError("You must enter a path in order to find a file to decrypt.")
+            raise ValueError(MESSAGE_ERROR_NOT_VALID_PATH)
         if not filename.endswith(".txt"):
-            raise ValueError("You must insert a txt file to decrypt.")
+            raise ValueError(MESSAGE_ERROR_NOT_VALID_FILE_TYPE)
 
         path = self._resolve_path(filename)
         text = self.get_text(filename)
