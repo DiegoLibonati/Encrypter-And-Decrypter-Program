@@ -39,7 +39,7 @@ class InterfaceApp:
         self._main_view.set_import_label(self._path)
 
     def _encrypt_file(self) -> None:
-        ok = FileService().encrypt_file(self._path)
+        ok = FileService().encrypt_file(filepath=self._path)
 
         if not ok:
             return
@@ -47,7 +47,7 @@ class InterfaceApp:
         self._main_view.set_result(MESSAGE_SUCCESS_ENCRYPTED)
 
     def _decrypt_file(self) -> None:
-        ok = FileService().decrypt_file(self._path)
+        ok = FileService().decrypt_file(filepath=self._path)
 
         if not ok:
             return

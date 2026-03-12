@@ -118,7 +118,7 @@ class TestInterfaceAppEncryptFile:
             mock_instance.encrypt_file.return_value = True
             interface_app._encrypt_file()
 
-        mock_instance.encrypt_file.assert_called_once_with(interface_app._path)
+        mock_instance.encrypt_file.assert_called_once_with(filepath=interface_app._path)
 
     def test_fresh_file_service_is_instantiated(self, interface_app: InterfaceApp) -> None:
         interface_app._path = "notes.txt"
@@ -157,7 +157,7 @@ class TestInterfaceAppDecryptFile:
             mock_instance.decrypt_file.return_value = True
             interface_app._decrypt_file()
 
-        mock_instance.decrypt_file.assert_called_once_with(interface_app._path)
+        mock_instance.decrypt_file.assert_called_once_with(filepath=interface_app._path)
 
     def test_fresh_file_service_is_instantiated(self, interface_app: InterfaceApp) -> None:
         interface_app._path = "notes.txt"
