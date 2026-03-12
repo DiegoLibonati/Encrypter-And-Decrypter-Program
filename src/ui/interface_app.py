@@ -39,15 +39,17 @@ class InterfaceApp:
         self._main_view.set_import_label(self._path)
 
     def _encrypt_file(self) -> None:
-        try:
-            FileService().encrypt_file(self._path)
-            self._main_view.set_result(MESSAGE_SUCCESS_ENCRYPTED)
-        except ValueError as e:
-            self._main_view.set_result(str(e))
+        ok = FileService().encrypt_file(self._path)
+
+        if not ok:
+            return
+
+        self._main_view.set_result(MESSAGE_SUCCESS_ENCRYPTED)
 
     def _decrypt_file(self) -> None:
-        try:
-            FileService().decrypt_file(self._path)
-            self._main_view.set_result(MESSAGE_SUCCESS_DECRYPTED)
-        except ValueError as e:
-            self._main_view.set_result(str(e))
+        ok = FileService().decrypt_file(self._path)
+
+        if not ok:
+            return
+
+        self._main_view.set_result(MESSAGE_SUCCESS_DECRYPTED)
