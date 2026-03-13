@@ -34,11 +34,11 @@ class FileService:
 
     def _validate(self, filepath: str) -> bool:
         if not filepath:
-            ValidationDialogError(message=MESSAGE_NOT_VALID_PATH).dialog()
-            return False
+            raise ValidationDialogError(message=MESSAGE_NOT_VALID_PATH)
+
         if not filepath.endswith(".txt"):
-            ValidationDialogError(message=MESSAGE_NOT_VALID_FILE_TYPE).dialog()
-            return False
+            raise ValidationDialogError(message=MESSAGE_NOT_VALID_FILE_TYPE)
+
         return True
 
     def _resolve_path(self, filepath: str) -> str:
