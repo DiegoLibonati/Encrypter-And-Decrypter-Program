@@ -1,4 +1,4 @@
-# Encrypter And Decrypter Program
+# File Encryption Tool
 
 ## Educational Purpose
 
@@ -64,11 +64,7 @@ pyinstaller==6.16.0
 
 ## Portfolio Link
 
-[`https://www.diegolibonati.com.ar/#/project/Encrypter-And-Decrypter-Program`](https://www.diegolibonati.com.ar/#/project/Encrypter-And-Decrypter-Program)
-
-## Video
-
-https://user-images.githubusercontent.com/99032604/199141421-8723b21b-bc04-4c59-be1a-d1342800a1c0.mp4
+[`https://www.diegolibonati.com.ar/#/project/file-encryption-tool`](https://www.diegolibonati.com.ar/#/project/file-encryption-tool)
 
 ## Testing
 

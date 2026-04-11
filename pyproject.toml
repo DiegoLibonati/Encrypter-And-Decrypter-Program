@@ -1,12 +1,12 @@
 [project]
-name = "encrypter-and-decrypter-program"
+name = "file-encryption-tool"
 version = "1.0.0"
 description = "I made a python program using tkinter as user interface. This program allows to encrypt text files, and also to decrypt them as long as we know a password."
 requires-python = ">=3.11"
 
 [tool.pytest.ini_options]
 pythonpath = "."
-testpaths = ["test"]
+testpaths = ["tests"]
 python_files = "test_*.py"
 python_classes = "Test*"
 python_functions = "test_*"
