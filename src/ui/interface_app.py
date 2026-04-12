@@ -12,7 +12,7 @@ class InterfaceApp:
         self._styles = styles
         self._config = config
         self._root = root
-        self._root.title("File Encryption Tool")
+        self._root.title("Lockscript")
         self._root.geometry("800x300+0+0")
         self._root.resizable(False, False)
         self._root.config(bg=self._styles.WHITE_COLOR)

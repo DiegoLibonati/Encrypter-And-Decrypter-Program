@@ -1,4 +1,4 @@
-# File Encryption Tool
+# Lockscript
 
 ## Educational Purpose
 
@@ -24,7 +24,23 @@ The main goal is to explore and demonstrate best practices, patterns, and techno
 
 ## Description
 
-I made a python program using tkinter as user interface. This program allows to encrypt text files, and also to decrypt them as long as we know a password.
+Lockscript is a desktop application built with Python and Tkinter that lets you encrypt and decrypt text files directly from a graphical interface — no terminal knowledge required.
+
+**How it works:**
+
+The user selects a text file using the built-in file importer. Once a file is loaded, two actions are available: **Encrypt** and **Decrypt**. Encryption applies a Caesar-style character shift (+1) to every character in the file, transforming readable text into an unreadable form. Decryption reverses that process (-1), restoring the original content — as long as the file was previously encrypted with this same application.
+
+**Key characteristics:**
+
+- **File-based**: works directly on `.txt` files stored on disk. The encrypted output overwrites (or is saved alongside) the original file.
+- **No external dependencies for core logic**: the encryption engine is self-contained and requires no third-party cryptography libraries.
+- **Error-aware UI**: invalid file paths, unsupported formats, or missing selections trigger descriptive dialog popups rather than silent failures, making the experience beginner-friendly.
+- **Environment-aware**: supports `development`, `production`, and `testing` configurations via a `.env` file, enabling clean separation between runtime contexts.
+- **Distributable**: the app can be packaged into a standalone executable (`.exe` on Windows, binary on Linux/Mac) using PyInstaller, so end users do not need Python installed.
+
+**Intended use:**
+
+Lockscript is designed as a lightweight, educational tool to demonstrate how a full Python desktop application can be structured — covering UI, service layer, error handling, configuration management, testing, linting, and build pipelines — all within a single cohesive project.
 
 ## Technologies used
 
@@ -64,7 +80,7 @@ pyinstaller==6.16.0
 
 ## Portfolio Link
 
-[`https://www.diegolibonati.com.ar/#/project/file-encryption-tool`](https://www.diegolibonati.com.ar/#/project/file-encryption-tool)
+[`https://www.diegolibonati.com.ar/#/project/lockscript`](https://www.diegolibonati.com.ar/#/project/lockscript)
 
 ## Testing
 
