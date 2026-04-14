@@ -1,7 +1,7 @@
 [project]
 name = "lockscript"
 version = "1.0.0"
-description = "**Lockscript** is a desktop application built with Python and Tkinter that lets you encrypt and decrypt text files directly from a graphical interface — no terminal knowledge required."
+description = "Lockscript is a desktop application built with Python and Tkinter that lets you encrypt and decrypt text files directly from a graphical interface — no terminal knowledge required."
 requires-python = ">=3.11"
 
 [tool.pytest.ini_options]
