@@ -10,7 +10,7 @@ from src.configs.testing_config import TestingConfig
 from src.ui.interface_app import InterfaceApp
 from src.utils.error_handler import error_handler
 
-logger = setup_logger("notepad-program - app.py")
+logger = setup_logger("lockscript - app.py")
 
 CONFIG_MAP = {
     "development": DevelopmentConfig,
